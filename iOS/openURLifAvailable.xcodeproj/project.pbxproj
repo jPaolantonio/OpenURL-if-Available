@@ -275,6 +275,7 @@
 				1AE4C21B15824B2600F33ED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
