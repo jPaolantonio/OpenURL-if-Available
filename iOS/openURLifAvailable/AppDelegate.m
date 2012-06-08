@@ -25,6 +25,32 @@
     return YES;
 }
 
+- (NSDictionary*)parseURLParams:(NSString *)query {
+	NSArray *pairs = [query componentsSeparatedByString:@"&"];
+	NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+	for (NSString *pair in pairs) {
+		NSArray *kv = [pair componentsSeparatedByString:@"="];
+		NSString *val =
+        [[kv objectAtIndex:1]
+         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+		[params setObject:val forKey:[kv objectAtIndex:0]];
+	}
+    return params;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    NSString *urlHost = [[url host] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"URL Host" message:urlHost delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+    NSDictionary *params = [self parseURLParams:[url query]];
+    NSLog(@"params: %@", params);
+
+    return YES;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
