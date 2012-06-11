@@ -25,14 +25,12 @@
     return YES;
 }
 
-- (NSDictionary*)parseURLParams:(NSString *)query {
+- (NSDictionary *)parseURLParams:(NSString *)query {
 	NSArray *pairs = [query componentsSeparatedByString:@"&"];
 	NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 	for (NSString *pair in pairs) {
 		NSArray *kv = [pair componentsSeparatedByString:@"="];
-		NSString *val =
-        [[kv objectAtIndex:1]
-         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *val = [[kv objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
 		[params setObject:val forKey:[kv objectAtIndex:0]];
 	}
